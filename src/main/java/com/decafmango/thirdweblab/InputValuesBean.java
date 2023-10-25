@@ -25,7 +25,11 @@ public class InputValuesBean implements Serializable {
 
     public void checkHit() {
         try {
-            Float.parseFloat(y);
+            Float yFlt = Float.parseFloat(y);
+            if (!(yFlt > -3 && yFlt < 5)) {
+                isValid = false;
+                return;
+            }
         } catch (NumberFormatException e) {
             isValid = false;
             return;

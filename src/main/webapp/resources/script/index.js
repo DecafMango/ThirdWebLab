@@ -1,3 +1,22 @@
+let dots = [];
+let dotsCounter = 0;
+
+window.onload = function () {
+    for (let row of document.querySelectorAll(".table-data-row")) {
+        row = row.innerHTML.replaceAll(" ", "").replaceAll("<td>", "").replaceAll("</td>", "|").split("|");
+        row.splice(row.length - 1, 1);
+        dots[dotsCounter] = {
+            x: row[0],
+            y: row[1],
+            isHit: row[4]
+        }
+        dotsCounter++;
+
+    }
+    repaintCanvas(3);
+}
+
+
 function repaintCanvas(r) {
     const canvas = document.getElementById("field-canvas");
     if (canvas.getContext) {
@@ -10,7 +29,7 @@ function repaintCanvas(r) {
         ctx.fillStyle = "#247FFF";
 
         ctx.beginPath();
-        ctx.arc(0, 0, r * 40, Math.PI, 3/2 * Math.PI);
+        ctx.arc(0, 0, r * 40, Math.PI, 3 / 2 * Math.PI);
         ctx.lineTo(0, 0);
         ctx.fill();
 
@@ -153,10 +172,46 @@ function repaintCanvas(r) {
         ctx.lineTo(10, 200);
         ctx.stroke();
         ctx.strokeText("-5", 15, 200);
+
+        for (let dot of dots) {
+            if (dot.isHit.includes("true"))
+                ctx.fillStyle = "purple";
+            else
+                ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(dot.x * 40, -dot.y * 40, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.translate(-(415 / 2 + 1), -(415 / 2 + 1));
     }
 
 }
 
-window.onload = function() {
-    repaintCanvas(3);
+document.getElementById("field-canvas").onclick = function (event) {
+    let x = (event.pageX - document.body.offsetWidth / 2);
+    let y = (160 + 415 / 2 + 1 - event.pageY);
+
+    // calculate x
+    x /= 40;
+    x = Math.round(x);
+
+    if (!(x >= -4 && x <= 4)) {
+        alert("Unable to calculate x-value");
+        return;
+    }
+
+    // calculate y
+    y /= 40;
+
+    if (!(y > -3 && y < 5)) {
+        alert("Unable to calculate y-value");
+        return;
+    }
+
+
+    document.querySelector("select[name='j_idt7:j_idt9']").value = x;
+    document.querySelector("input[name='j_idt7:j_idt20']").value = y;
+    document.querySelector("input[name='j_idt7:j_idt24']").click();
 }
+
