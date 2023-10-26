@@ -37,6 +37,10 @@ details > p {
     text-align: center;
 }
 
+details p {
+    z-index: 3;
+}
+
 details > summary::marker /* Safari */ {
     display: none;
 }
@@ -76,6 +80,11 @@ fieldset:last-child button {
     border: 2px solid #FFFFFF;
     border-radius: 50%;
     background: #C6CFDC;
+}
+
+.clock {
+    text-align: center;
+    font-size: 40px;
 }
 
 .button-pressed {
@@ -124,18 +133,21 @@ fieldset:nth-child(2) input:focus {
     border-radius: 5px;
 }
 
-.submit-button {
+.form-button {
     display: block;
     height: 35px;
     width: 100%;
     background: #247FFF;
+    margin-bottom: 10px;
+    border: none;
     border-radius: 5px;
     color: #ffffff;
     text-transform: uppercase;
     text-align: center;
+    text-decoration: none;
 }
 
-.submit-button:hover {
+.form-button:hover {
     background: #0D6CF2;
 }
 

@@ -22,7 +22,7 @@
         </details>
     </header>
     <main>
-        <canvas id="field-canvas" width="415" height="415"/>
+        <canvas id="field-canvas" width="415" height="415" />
         <h:form>
             <div class="input-from-container">
                 <h1 class="form-title">
@@ -56,13 +56,14 @@
                         <legend>
                             Choose R
                         </legend>
-                        <p:inputText widgetVar="rSliderValue" id="r-value"  style="display: none" />
+                        <p:inputText widgetVar="rSliderValue" id="r-value"  value="#{inputValuesBean.r}" style="display: none" />
                         <p:slider for="r-value" widgetVar="r-value-slider" minValue="1" maxValue="4" step="0.5" style="width: 90%; margin-top: 7px"
                             displayTemplate="true" onSlideEnd="repaintCanvas(PF('r-value-slider').getValue())" />
                     </fieldset>
                 </div>
                 <div class="form-buttons">
-                    <h:commandButton action="#{inputValuesBean.checkHit()}" value="submit" styleClass="submit-button" />
+                    <h:commandButton action="#{inputValuesBean.checkHit()}" value="submit" styleClass="form-button" />
+                    <h:commandLink action="start.xhtml?faces-redirect=true" value="Go to start page" styleClass="form-button" style="padding-top: 9px" />
                 </div>
             </div>
         </h:form>
@@ -96,8 +97,9 @@
             </h:dataTable>
         </h:form>
     </main>
+
+    <h:outputScript library="script" name="index.js" />
     <h:outputScript library="primefaces" name="core.js" />
     <h:outputScript library="primefaces" name="components.js" />
-    <h:outputScript library="script" name="index.js" />
 </h:body>
 </html>

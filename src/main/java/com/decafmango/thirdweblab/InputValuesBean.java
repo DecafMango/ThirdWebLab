@@ -1,5 +1,6 @@
 package com.decafmango.thirdweblab;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -9,17 +10,17 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Named
-@SessionScoped
+@RequestScoped
 @Getter
 @Setter
-public class InputValuesBean implements Serializable {
+public class InputValuesBean {
 
     @Inject
     private CheckHitBean checkHitBean;
 
     private String x = "0";
     private String y = "1.0";
-    private String r = "1.0";
+    private String r = "3.0";
 
     private Boolean isValid = true;
 
@@ -32,10 +33,12 @@ public class InputValuesBean implements Serializable {
             }
         } catch (NumberFormatException e) {
             isValid = false;
+            r = "3.0";
             return;
         }
         isValid = true;
         checkHitBean.check(Integer.parseInt(x), Float.parseFloat(y), Float.parseFloat(r));
+        r = "3.0";
     }
 
 }

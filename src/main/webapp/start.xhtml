@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet library="css" name="style.css" />
+    <title>Index Page</title>
+</h:head>
+<h:body>
+    <header>
+        <details>
+            <summary><img src="https://se.ifmo.ru/o/helios-theme/images/cs_logo.png" alt="duck logo"/></summary>
+            <p>
+                Laboratory work №3<br/>
+                Variant: 17223<br/>
+                Student: Razinkin Alexander<br/>
+                Group: P3207
+            </p>
+        </details>
+    </header>
+    <main>
+        <div class="input-from-container">
+            <div class="clock form-field" id="txt" />
+            <h:form>
+                <h:commandLink action="index.xhtml?faces-redirect=true" value="Go to index" styleClass="form-button" style="padding-top: 9px"/>
+            </h:form>
+        </div>
+    </main>
+    <h:outputScript library="script" name="start.js" />
+</h:body>
+</html>

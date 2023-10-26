@@ -1,19 +1,34 @@
-let dots = [];
-let dotsCounter = 0;
+let dots = new Map();
 
 window.onload = function () {
     for (let row of document.querySelectorAll(".table-data-row")) {
         row = row.innerHTML.replaceAll(" ", "").replaceAll("<td>", "").replaceAll("</td>", "|").split("|");
         row.splice(row.length - 1, 1);
-        dots[dotsCounter] = {
-            x: row[0],
-            y: row[1],
-            isHit: row[4]
+        if (dots.get(row[2]) === undefined) {
+            dots.set(row[2], [
+                {
+                    x: row[0],
+                    y: row[1],
+                    isHit: row[4]
+                }
+            ]);
+        } else {
+            dots.get(row[2])[dots.get(row[2]).length] = {
+                x: row[0],
+                y: row[1],
+                isHit: row[4]
+            };
         }
-        dotsCounter++;
-
     }
-    repaintCanvas(3);
+    repaintCanvas("3.0")
+}
+
+function getDotsList(r) {
+    for (let key of dots.keys()) {
+        if (key.includes(r))
+            return dots.get(key);
+    }
+    return undefined;
 }
 
 
@@ -173,16 +188,17 @@ function repaintCanvas(r) {
         ctx.stroke();
         ctx.strokeText("-5", 15, 200);
 
-        for (let dot of dots) {
-            if (dot.isHit.includes("true"))
-                ctx.fillStyle = "purple";
-            else
-                ctx.fillStyle = "red";
-            ctx.beginPath();
-            ctx.arc(dot.x * 40, -dot.y * 40, 5, 0, Math.PI * 2);
-            ctx.fill();
+        if (getDotsList(r) !== undefined) {
+            for (let dot of getDotsList(r)) {
+                if (dot.isHit.includes("true"))
+                    ctx.fillStyle = "purple";
+                else
+                    ctx.fillStyle = "red";
+                ctx.beginPath();
+                ctx.arc(dot.x * 40, -dot.y * 40, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
-
         ctx.translate(-(415 / 2 + 1), -(415 / 2 + 1));
     }
 
@@ -214,4 +230,3 @@ document.getElementById("field-canvas").onclick = function (event) {
     document.querySelector("input[name='j_idt7:j_idt20']").value = y;
     document.querySelector("input[name='j_idt7:j_idt24']").click();
 }
-
