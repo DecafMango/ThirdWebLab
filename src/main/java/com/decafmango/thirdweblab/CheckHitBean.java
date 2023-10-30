@@ -29,7 +29,7 @@ public class CheckHitBean {
         else if (x <= 0 && y <= 0)
             return y >= -x - r;
         else if (x >= 0 && y <= 0)
-            return y >= -r;
+            return (x <= r && y >= -r);
         else
             return false;
     }
